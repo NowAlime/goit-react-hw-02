@@ -1,0 +1,28 @@
+.containerFeedback {
+    padding: 24px;
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    color: aqua;
+  }
+  
+  .feedbackGood {
+    color: pink;
+    font-weight: 600;
+  }
+  .feedbackNeutral {
+    color: red;
+    font-weight: 600;
+  }
+  .feedbackBad {
+    color: green;
+    font-weight: 600;
+  }
+  .totalFeedback {
+    color: purple;
+    font-weight: 600;
+  }
+  .positiveFeedback {
+    color: blue;
+    font-weight: 600;
+  }

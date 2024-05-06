@@ -1,10 +1,9 @@
 import css from "../Description/Description.module.css";
-
 export function Description() {
   return (
-    <div>
-      <h1>Sip Happens Café</h1>
-      <p>
+    <div className={css.descriptionContainer}>
+      <h1 className={css.descriptionHeader}>Sip Happens Café</h1>
+      <p className={css.description}>
         Please leave your feedback about our service by selecting one of the
         options below.
       </p>

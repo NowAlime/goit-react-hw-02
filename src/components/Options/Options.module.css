@@ -1,0 +1,22 @@
+.buttonList {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+    padding-left: 16px;
+    margin-bottom: 24px;
+  }
+  .buttonStyle {
+    border-radius: 8px;
+    border: none;
+    padding: 0.6em 1.2em;
+    font-size: 1em;
+    font-weight: 500;
+    font-family: inherit;
+    background-color: grey;
+    cursor: pointer;
+    color: aliceblue;
+  }
+  .buttonStyle:hover {
+    color: rgb(193, 210, 225);
+    background-color: #054a90;
+  }

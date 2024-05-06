@@ -1,37 +1,57 @@
-import { useState } from "react";
-import Description from "../Description/Description";
-import Feedback from "../Feedback/Feedback";
-// import Options from "../Options/Options";
+import { useState, useEffect } from 'react'
+import Description from '../Description/Description'
+import Options from '../Options/Options'
+import Feedback from '../Feedback/Feedback'
+import Notification from '../Notification/Notification'
+import style from'../App/App.module.css'
 
+function App() {
+    const [countFeedback, setCountFeedback] = useState(() => {
+        const savedFeedback = window.localStorage.getItem("countFeedback");
+        if (savedFeedback !== null) {
+          return JSON.parse(savedFeedback);
+        }
+        return { good: 0, neutral: 0, bad: 0 };
+      });
 
-function App ()  {};
+  const { good, neutral, bad } = countFeedback;
+  const totalFeedback = good + neutral + bad;
+  const positiveFeedback = Math.round((good / totalFeedback) * 100);
 
-//    const {calcFeedback, setCalcFeedback} = useState(0);
+  const updateFeedback = (type, value = null) => {
+    setCountFeedback((prevCountFeedback) => {
+      if (value === null) {
+        return {
+          ...prevCountFeedback,
+          [type]: prevCountFeedback[type] + 1,
+        };
+      } else {
+        return {
+          ...prevCountFeedback,
+          [type]: value,
+        };
+      }
+    });
+  };
+  useEffect(() => {
+    localStorage.setItem("countFeedback", JSON.stringify(countFeedback));
+  }, [countFeedback]);
 
-//    const { good, neutral, bad } = calcFeedback;
+  return (
+    <>
+      <Description />
+      <Options updateFeedback={updateFeedback} totalFeedback={totalFeedback} />
+      {totalFeedback === 0 ? (
+        <Notification totalFeedback={totalFeedback} />
+      ) : (
+        <Feedback
+          countFeedback={countFeedback}
+          totalFeedback={totalFeedback}
+          positiveFeedback={positiveFeedback}
+        />
+      )}
+    </>
+  );
+}
 
-//    const positiveFeedback = Math.round((good / totalFeedback) * 100);
-   
-//    const updateFeedback = feedbackType => {};
-
-//    const totalFeedback = good + neutral + bad;
-   
-   
-   
-   
-   
-//    return (
-//     <>
-//     <Description />
-//     <Feedback
-//           calcFeedback={calcFeedback}
-//           totalFeedback={totalFeedback}
-//           positiveFeedback={positiveFeedback}
-//         />
-
-//    <Options updateFeedback={updateFeedback} totalFeedback={totalFeedback} />
-//     </>
-//    );
-// }
-
-export default App;
+export default App
