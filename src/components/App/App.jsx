@@ -3,7 +3,6 @@ import Description from '../Description/Description'
 import Options from '../Options/Options'
 import Feedback from '../Feedback/Feedback'
 import Notification from '../Notification/Notification'
-import style from'../App/App.module.css'
 
 function App() {
     const [countFeedback, setCountFeedback] = useState(() => {
