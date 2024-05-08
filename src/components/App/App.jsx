@@ -5,17 +5,13 @@ import Feedback from '../Feedback/Feedback'
 import Notification from '../Notification/Notification'
 
 function App() {
-    const [countFeedback, setCountFeedback] = useState(() => {
-        const savedFeedback = window.localStorage.getItem("countFeedback");
-        if (savedFeedback !== null) {
-          return JSON.parse(savedFeedback);
-        }
-        return { good: 0, neutral: 0, bad: 0 };
-      });
-
-  const { good, neutral, bad } = countFeedback;
-  const totalFeedback = good + neutral + bad;
-  const positiveFeedback = Math.round((good / totalFeedback) * 100);
+  const [countFeedback, setCountFeedback] = useState(() => {
+    const savedFeedback = window.localStorage.getItem("countFeedback");
+    if (savedFeedback !== null) {
+      return JSON.parse(savedFeedback);
+    }
+    return { good: 0, neutral: 0, bad: 0 };
+  });
 
   const updateFeedback = (type, value = null) => {
     setCountFeedback((prevCountFeedback) => {
@@ -32,14 +28,27 @@ function App() {
       }
     });
   };
+
+  const resetFeedback = () => {
+    setCountFeedback({ good: 0, neutral: 0, bad: 0 });
+  };
+
   useEffect(() => {
     localStorage.setItem("countFeedback", JSON.stringify(countFeedback));
   }, [countFeedback]);
 
+  const { good, neutral, bad } = countFeedback;
+  const totalFeedback = good + neutral + bad;
+  const positiveFeedback = Math.round((good / totalFeedback) * 100);
+
   return (
     <>
       <Description />
-      <Options updateFeedback={updateFeedback} totalFeedback={totalFeedback} />
+      <Options
+        updateFeedback={updateFeedback}
+        resetFeedback={resetFeedback}
+        totalFeedback={totalFeedback}
+      />
       {totalFeedback === 0 ? (
         <Notification totalFeedback={totalFeedback} />
       ) : (
@@ -53,4 +62,4 @@ function App() {
   );
 }
 
-export default App
+export default App;
